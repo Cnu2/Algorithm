@@ -1,10 +1,8 @@
 """
 1/5
 1. 23/05/03
-2. 
+2. 23/05/10
 3.
-4.
-5.
 """
 
 """
@@ -28,7 +26,9 @@ print(list[1])
 
 """
 import sys
-num_list = list(map(int,sys.stdin.readline().split()))
+input  = sys.stdin.readline
+
+num_list = list(map(int, input().split()))
 num_list.sort()
-breakpoint()
+# breakpoint()
 print(num_list[1])
