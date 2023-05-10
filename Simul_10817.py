@@ -30,5 +30,4 @@ input  = sys.stdin.readline
 
 num_list = list(map(int, input().split()))
 num_list.sort()
-# breakpoint()
 print(num_list[1])
