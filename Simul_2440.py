@@ -1,10 +1,8 @@
 """
-1/5
+1/3
 1. 23/05/04
 2. 
 3.
-4.
-5.
 """
 
 """
@@ -13,17 +11,12 @@
 """
 
 """
-[문제 해결]
-for 문을 돌리면 되지 않을까?
-"""
-
-"""
 [sudo code]
-N = input()
-for i in range(N,1,-1)
-    print()
+1. N 입력
+2. N에 -1을 더해가며 *을 출력
 """
 import sys
-N = int(sys.stdin.readline())
+input = sys.stdin.readline
+N = int(input())
 for i in range(N,0,-1):
-    print(i * '*')
+    print('*'* i)
