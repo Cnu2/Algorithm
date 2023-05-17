@@ -1,7 +1,7 @@
 """
 1/3
 1. 23/05/10
-2. 
+2. 23/05/17
 3.
 """
 
@@ -22,18 +22,21 @@
 4. 1로 바꿔준 값을 더하여 결과값을 출력한다.
     
 """
-N = int(input())
-array = [[0] * 100 for _ in range(100)]  # 도화지 범위 초기화
-for _ in range(N):  # 입력 받은 도화지 개수만큼 돈다.
-    y1, x1 = map(int, input().split())  # 왼쪽아래 x,y 좌표를 받는다.
+# 색 종이의 갯수를 입력받는다.
+n = int(input())
+result = []
+# 100 * 100의 array를 만든다.
+arr = [[0] * 100 for _ in range(100)]
+# 종이 수 만큼 위치를 입력받는다.
+for _ in range(n):
+    r, c = map(int, input().split())
+    # breakpoint()
+    for i in range(r,r+10):
+        for j in range(c, c + 10):
+            arr[i][j] = 1
 
-    for i in range(x1, x1 + 10):  # 세로를 돈다.
-        for j in range(y1, y1 + 10):  # 가로를 돈다.
-            array[i][j] = 1  # 해당 범위 값을 0에서 1로 바꿔준다.
+for i in range(100):
+    result.append(sum(arr[i]))
 
-result = 0  # 넓이를 출력할 변수
-for k in range(100):  # 전체 도화지를 돌면서
-    result += sum(array[k])  # 1 개수만 세어준다
-
-print(result)
-
+print(sum(result))
+    
