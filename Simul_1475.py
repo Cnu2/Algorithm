@@ -1,7 +1,8 @@
 """
-1/3
+https://www.acmicpc.net/problem/1475
+2/3
 1. 23/05/11
-2. 
+2. 23/05/18
 3. 
 """
 
@@ -19,31 +20,29 @@
 
 """
 [sudo code]
-1. n을 입력받는다.
-2. 크기가 10인 result 리스트를 만든다.
-3. n에 대하여 for문을 돌린다.
-    n[i]가 6 또는 9이면
-        n[6] <= n[9] 이면
-            n[6]에 +1
-        그렇지 않으면
-            n[9]에 +1
-    else
-        n[i] += 1
+- num을 입력
+- num_list = str(num)
+- num_arr = [0] * 10 
+- num_list의 숫자 하나씩 본다
+    - 6 또는 9 이면
+        - num[6] 또는 num[9] 에서 적은쪽에 넣어준다. 
+    - 그렇지 않으면 num_arr에 넣어준다.
+- num_arr중에 max를 출력한다.
+
 """
-import sys
-input = sys.stdin.readline
-N = list(str(int(input())))
+num = int(input())
+num_list = str(num)
 # breakpoint()
-result = [0]*10
-for num in N:
-    if int(num) == 6 or int(num) == 9:
-        if result[6] <= result[9]:
-            result[6] += 1
+num_arr = [0] * 10
+
+for i in num_list:
+    if int(i) == 6 or int(i) == 9:
+        if num_arr[6] >= num_arr[9]:
+            num_arr[9] += 1
         else:
-            result[9] += 1
-    else:
-        result[int(num)] += 1
+            num_arr[6] += 1
     
-print(max(result))
-
-
+    else:
+        num_arr[int(i)] += 1
+# breakpoint()
+print(max(num_arr))
