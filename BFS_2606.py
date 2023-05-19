@@ -1,7 +1,7 @@
 """
-1/3
+2/3
 1. 23/05/12
-2.
+2. 23/05/19
 3.
 """
 
@@ -20,42 +20,45 @@
 
 """
 [sudo code]
-1. n = 컴퓨터의 수 
-2. v = 연결선 개수
-3. graph = [] * n+1 
-4. visited = [0] * n+1
-5. 그래프 생성
-6. visited[1] = 1 
-7. Q = deque([1])
-8. while문
-    c = Q.popleft()
-    c에 있는 값을 체크
-        c에 있는 값이 visited[c] == 0이라면
-            Q에 c값을 넣어주고
-            visited[c]를 방문처리
-9. visited에 값을 합치고 - 1 
+n 컴퓨터의 수 
+edge 연결 선 수
+관계를 입력할 array 선언
+visited = set() 
+
+연결된 관계 입력
+
+queue 에 1번 컴퓨터 저장
+
+1번 리스트를 돌면서 안에 있는 숫자 queue에 append
+visit한 적이 없으면 append
+
 
 """
 from collections import deque
-n=int(input()) # 컴퓨터 개수
-v=int(input()) # 연결선 개수
-graph = [[] for i in range(n+1)] # 그래프 초기화,1번 컴퓨터를 1번 인덱스로 쓰기 위해 공간 하나를 더 씀
-visited=[0]*(n+1) # 방문한 컴퓨터인지 표시
+n = int(input())
+edge = int(input())
+array = [[] for i in range(n+1)]
+visited = set()
 
-for i in range(v): # 그래프 생성
-    a,b=map(int,input().split())
-    graph[a]+=[b] # a에 b 연결
-    graph[b]+=[a] # b에 a 연결 -> 양방향
-# breakpoint()
+for _ in range(edge):
+    p1, p2 = map(int, input().split())
+    if p2 not in array[p1]:
+        array[p1].append(p2)
+    if p1 not in array[p2]:
+        array[p2].append(p1)
 
-visited[1]=1 # 1번 컴퓨터부터 시작이니 방문 표시
-Q=deque([1])
-while Q:
-    c=Q.popleft()
-    for nx in graph[c]:
-        if visited[nx]==0:
-            Q.append(nx)
-            visited[nx]=1
-print(sum(visited)-1)
+queue = deque()
+queue.append(array[1])
+visited.add(1)
+
+while queue:
+    index_list = queue.popleft()
+    for i in index_list:
+        if i not in visited:
+            visited.add(i)
+            queue.append(array[i])
+
+print(len(visited)-1)
+
 
 
