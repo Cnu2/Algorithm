@@ -1,7 +1,7 @@
 """
 1/3
 1. 23/05/16
-2. 
+2. 23/05/30 
 3.
 """
 
@@ -77,6 +77,15 @@ print(len(cnt))
 for i in range(len(cnt)):
     print(cnt[i])
 
+
+
+
+
+
+
+
+
+    
 
 
 
