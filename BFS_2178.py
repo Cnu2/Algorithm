@@ -1,7 +1,7 @@
 """
 1/3
 1. 23/05/17
-2.
+2. 23/05/30
 3.
 """
 
@@ -48,44 +48,42 @@ N×M크기의 배열로 표현되는 미로가 있다.
 
 """
 from collections import deque
-import sys
-# input = sys.stdin.readline
 
 def bfs():
     while queue:
-        r,c,count = queue.popleft()
-        # 네 방향으로 이동해본다.
+        col, row, count = queue.popleft()
         for i in d:
-            dr = r + i[0]
-            dc = c + i[1]
-            # breakpoint()
-            if dr < 0 or dr >= n or dc < 0 or dc >= m:
+            dx = col + i[0]
+            dy = row + i[1]
+            if dx < 0 or dy < 0 or dx > n-1 or dy > m-1:
                 continue
-            elif dr == n-1 and dc == m-1:
-                count += 1 
-                result.append(count)
-            elif int(arr[dr][dc]) == 1:
-                arr[dr][dc] = 0
-                next_count = count + 1
-                queue.append((dr,dc,next_count))
-        
-    return(min(result))
+            elif dx == n-1 and dy == m-1:
+                temp_count = count + 1
+                result.append(temp_count)
+            elif graph[dx][dy] == 1:
+                graph[dx][dy] = 0
+                # breakpoint()
+                temp_count = count + 1
+                queue.append((dx,dy,temp_count))
+    
+    return min(result)
 
-
-
-# n,m을 입력한다.
-n,m = map(int, input().split())
-# map을 만든다.
-arr = [[int(ch) for ch in input()] for _ in range(n)]
-# 방향벡터 d를 설정
-d = [[-1,0], [1,0], [0,-1], [0,1]] # 상하좌우
+# 행과 열를 입력
+n,m = map(int,input().split())
+# 지도
+graph=[]
+# 결과
 result = []
-count = 1
+# 지도작성
+graph = [[int(ch) for ch in input()] for _ in range(n)]
+
+# 방향벡터 설정
+# 상하좌우
+d = [[-1,0],[1,0],[0,-1],[0,1]]
 queue = deque()
-queue.append((0,0,count))
-# breakpoint()
-arr[0][0] = 0
+# 시작점(0,0) 과 count 1 추가
+queue.append((0,0,1))
+graph[0][0] == 0
+
 
 print(bfs())
-
-
