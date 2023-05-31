@@ -1,7 +1,8 @@
 """
-1/3
+링크 : https://www.acmicpc.net/problem/2644
+2/3
 1. 23/05/19
-2.
+2. 23/05/31
 3.
 """
 
@@ -18,74 +19,64 @@
 
 """
 [sudo code]
-- 전체 사람의 수 p 입력
-- 사람 수 만큼 빈 배열 생성 arr = [] * p+1 (번호대로 index를 사용하기 위해 p+1을 함)
-- 촌수를 계산해야 되는 두 사람 번호 입력 p1, p2
-- count = 1 # 촌수
-- najibreak = False # 이 중 loop를 빠져나올 때 사용할 것
-- edge의 갯수 입력 
+- 전체사람의 수 n 입력 
+- n+1 크기의 rel 리스트 선언
+- 촌수를 계산해야 되는 두 사람 번호 p1,p2 입력 
+- 관계의 갯수 m 입력
 - 관계 입력
-    - index1, index2 입력
-    - arr[index1]에 index2가 없다면 
-        - arr[index1].append(index2)
-    - arr[index2]에 index1이 없다면
-        - arr[index2].append(index1)
+    r1,r2입력
+    만약 r1 index에 r2가 없다면 r1에 r2추가
+    반대도 마찬가지
+- queue에 rel[p1]과 count append
+- 관계찾기 bfs
+    queue가 null이 아닐때까지
+        queue를 popleft 한것을 l
+        l에 있는 원소들을 하나씩 살펴본다.
+            l1이 방문했던것이면 continue
+            p2가 l에 이라면 return count 
+            p2가 없다면 
+                count += 1
+                queue.append(l1,count)
+    관계가 없다면 return -1
 
-- queue에 p1과 count를 넣자
-- while queue
-    - list,cnt = queue.popleft()
-    - list에 p2가 있다면
-        - print(cnt)
-        - break
-    - 없다면
-    - for i in list:
-        - i가 방문한곳이 아니라면
-            - visited.append(i)
-            - temp_count = cnt + 1
-            - queue.append(arr[num], temp_count)
+- print(bfs())
+
 """
+
 from collections import deque
-# 사람의 수 입력
-n = int(input())
-# 사람의 수 만큼 배열 생성
-arr = [[] for i in range(n+1)]
-# 촌수를 계산해야 되는 두 사람 번호 입력 p1, p2
+
+def bfs():
+    while queue:
+        rel_list,cnt = queue.popleft()
+        # breakpoint()
+        for i in rel_list:
+            if i in visited:
+                continue
+            elif p2 == i:
+                return cnt
+            else:
+                temp_count = cnt + 1
+                visited.append(i)
+                queue.append((rel[i],temp_count))
+    return -1
+
+N = int(input())
+visited = []
+rel = [[] for _ in range(N+1)]
+# breakpoint()
 p1,p2 = map(int, input().split())
-# 촌수
-count = 1 
-# loop를 빠져나올 때 사용할 것
-najibreak = False 
-# edge의 갯수 입력
-edge = int(input())
+m = int(input())
+for _ in range(m):
+    r1,r2 = map(int, input().split())
+    if r2 not in rel[r1]:
+        rel[r1].append(r2) 
+    if r1 not in rel[r2]:
+        rel[r2].append(r1)
 
-# 관계입력
-for _ in range(edge):
-    index1, index2 = map(int, input().split())
-    if index2 not in arr[index1]:
-        arr[index1].append(index2)
-    if index1 not in arr[index2]:
-        arr[index2].append(index1)
-    # breakpoint()
-
-visited = set()
 queue = deque()
+count = 1
+queue.append((rel[p1],count))
+visited.append(p1)
 
-queue.append((arr[p1],count))
+print(bfs())
 
-while queue:
-    list, cnt = queue.popleft()
-    # breakpoint()
-    # p2가 list에 있다면
-    if p2 in list:
-        najibreak = True
-        print(cnt)
-        break
-    # 없다면 queue에 append
-    for i in list:
-        if i not in visited:
-            visited.add(i)
-            temp_count = cnt + 1
-            queue.append((arr[i], temp_count))
-    # breakpoint()
-if najibreak == False:
-    print(-1)
