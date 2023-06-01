@@ -1,10 +1,10 @@
 """
-1/5
+3/3
 1. 23/04/28
-2. 
-3.
-4.
-5.
+2. 23/05/05
+3. 23/06/01
+
+링크 : https://www.acmicpc.net/problem/1339
 """
 
 """
@@ -21,22 +21,12 @@ N개의 단어가 주어졌을 때, 그 수의 합을 최대로 만드는 프로
 """
 
 """
-[문제 해결]
-각 문자가 몇 번째 자리에 있는지 알아야 한다.
-자릿수가 높은 숫자를 순서대로 9부터 배정한다.
-예)
-GCF + ACDEB 일때
-A -> C -> D,G -> E -> F,B 순으로 배정
-"""
-
-"""
 [sudo code]
-N = input()
-
-for i in range(N):
-    vocab[i] = input()
-
-for key, value in     
+n 숫자의 갯수를 입력
+alpha에 단어를 저장
+alpha안에 단어의 알파벳마다 각 자리수를 제곱근으로 표현
+단어를 내림차순으로 정렬
+9부터 0까지 각 단어마다 곱해준다.
 """
 import sys
 n = int(sys.stdin.readline())
@@ -54,7 +44,7 @@ for i in range(n): # 모든 단어에 대해서
             alpha_dict[alpha[i][j]] += 10 ** (len(alpha[i])-j-1) # 자리에 맞게 추가 (1의 자리면 1)
         else: # 자리에 없으면 새로 추가 (10의 자리면 10)
             alpha_dict[alpha[i][j]] = 10 ** (len(alpha[i])-j-1) 
-
+breakpoint()
 for val in alpha_dict.values(): # dict에 저장된 수들을 모두 리스트에 추가
     num_list.append(val)
 
@@ -68,6 +58,4 @@ for i in num_list: # 첫 번째 부터 가장 큰 부분을 차지하므로 9를
     pows -= 1
 # 네려갈수록 그 알파벳이 차지하는 비중이 적으므로 -1
 print(sum)
-
-
 
