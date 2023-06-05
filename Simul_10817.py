@@ -1,8 +1,8 @@
 """
-1/5
+3/3
 1. 23/05/03
 2. 23/05/10
-3.
+3. 23/06/05
 """
 
 """
@@ -12,22 +12,13 @@
 """
 
 """
-[문제 해결]
-숫자를 입력받고
-sort을 진행하고
-1번째 index를 반환한다.
-"""
-
-"""
 [sudo code]
-list = list(input())
-list.sort
-print(list[1])
-
+A,B,C를 리스트 형태로입력
+sort
+1번째 원소를 print
 """
-import sys
-input  = sys.stdin.readline
 
-num_list = list(map(int, input().split()))
-num_list.sort()
-print(num_list[1])
+abc = list(map(int, input().split()))
+abc.sort()
+# breakpoint()
+print(abc[1])
