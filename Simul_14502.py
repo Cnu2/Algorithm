@@ -1,11 +1,13 @@
 """
-1/3
+3/3
 1. 23/05/09
 2. 23/05/16 
-3.
+3. 23/06/14
 """
 
 """
+[링크]
+
 [문제]
 인체에 치명적인 바이러스를 연구하던 연구소에서 바이러스가 유출되었다. 다행히 바이러스는 아직 퍼지지 않았고, 바이러스의 확산을 막기 위해서 연구소에 벽을 세우려고 한다.
 
@@ -68,18 +70,18 @@ def bfs():
     0의 갯수 파악
 
 """
-
 from collections import deque
 import copy
 import sys
-input = sys.stdin.readline
 
-d = [[-1,0],[1,0],[0,-1],[0,1]] # 상하좌우 
+input = sys.stdin.readline
+# 방향벡터 설정
+d = [[-1,0],[1,0],[0,-1],[0,1]]
 
 def bfs():
     queue = deque()
     #queue에 2의 위치 전부 append
-    test_map = copy.deepcopy(lab_map) # 깊은 복사
+    test_map = copy.deepcopy(lab_map)
     for i in range(n):
         for k in range(m):
             if test_map[i][k] == 2:
@@ -88,18 +90,18 @@ def bfs():
     while queue:
         r,c = queue.popleft()
 
-        for i in range(4): # 네 방향으로 이동
+        for i in range(4):
             dr = r+d[i][0]
             dc = c+d[i][1]
 
             if (0<=dr<n) and (0<=dc<m):
-                if test_map[dr][dc] == 0: # 이동한 곳이 0이면
-                    test_map[dr][dc] =2 # 감염
-                    queue.append((dr,dc)) # 큐에 추가
+                if test_map[dr][dc] == 0:
+                    test_map[dr][dc] =2
+                    queue.append((dr,dc))
 
     global result
     count = 0
-    for i in range(n): # 0의 갯수 확인
+    for i in range(n):
         for k in range(m):
             if test_map[i][k] == 0:
                 count +=1
@@ -107,15 +109,15 @@ def bfs():
     result = max(result, count)
 
 
-def make_wall(count): # 벽 3개를 세우는 과정
-    if count == 3: # 벽을 3개 세웠으면,
+def make_wall(count):
+    if count == 3:
         bfs()
         return
     for i in range(n):
         for k in range(m):
             if lab_map[i][k] == 0:
-                lab_map[i][k] = 1 # 벽을 세운다
-                make_wall(count+1) 
+                lab_map[i][k] = 1
+                make_wall(count+1)
                 lab_map[i][k] = 0
 
 
@@ -126,4 +128,3 @@ result = 0
 make_wall(0)
 
 print(result)
-
