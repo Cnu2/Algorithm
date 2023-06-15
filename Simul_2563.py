@@ -1,8 +1,8 @@
 """
-1/3
+3/3
 1. 23/05/10
 2. 23/05/17
-3.
+3. 23/06/15
 """
 
 """
@@ -22,21 +22,26 @@
 4. 1로 바꿔준 값을 더하여 결과값을 출력한다.
     
 """
-# 색 종이의 갯수를 입력받는다.
-n = int(input())
-result = []
-# 100 * 100의 array를 만든다.
-arr = [[0] * 100 for _ in range(100)]
-# 종이 수 만큼 위치를 입력받는다.
-for _ in range(n):
-    r, c = map(int, input().split())
+import sys
+input = sys.stdin.readline
+m = int(input())
+coords = []
+_sum = 0
+# 흰색 도화지 생성
+_map = [[0]*100 for i in range(100)]
+# breakpoint()
+for _ in range(m):
+    coords.append(list(map(int, input().split())))
+# breakpoint()
+for c in coords:
+    x,y = c
     # breakpoint()
-    for i in range(r,r+10):
-        for j in range(c, c + 10):
-            arr[i][j] = 1
+    for i in range(10):
+        for j in range(10):
+            if _map[y+i-1][x+j-1] == 0:
+                _map[y+i-1][x+j-1] = 1
+# breakpoint()
+for row in _map:
+    _sum += sum(row)
 
-for i in range(100):
-    result.append(sum(arr[i]))
-
-print(sum(result))
-    
+print(_sum)
