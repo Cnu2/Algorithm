@@ -1,8 +1,8 @@
 """
-1/3
+[풀이 횟수]
 1. 23/05/16
 2. 23/05/30 
-3.
+3. 23/06/19
 """
 
 """
@@ -76,6 +76,9 @@ cnt.sort()
 print(len(cnt))
 for i in range(len(cnt)):
     print(cnt[i])
+  
+
+
 
 
 
