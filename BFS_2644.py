@@ -3,7 +3,7 @@
 2/3
 1. 23/05/19
 2. 23/05/31
-3.
+3. 23/06/19
 """
 
 """
@@ -19,64 +19,68 @@
 
 """
 [sudo code]
-- 전체사람의 수 n 입력 
-- n+1 크기의 rel 리스트 선언
-- 촌수를 계산해야 되는 두 사람 번호 p1,p2 입력 
-- 관계의 갯수 m 입력
-- 관계 입력
-    r1,r2입력
-    만약 r1 index에 r2가 없다면 r1에 r2추가
-    반대도 마찬가지
-- queue에 rel[p1]과 count append
-- 관계찾기 bfs
-    queue가 null이 아닐때까지
-        queue를 popleft 한것을 l
-        l에 있는 원소들을 하나씩 살펴본다.
-            l1이 방문했던것이면 continue
-            p2가 l에 이라면 return count 
-            p2가 없다면 
-                count += 1
-                queue.append(l1,count)
-    관계가 없다면 return -1
+- 사람 수 n 입력
+- rels: n + 1 크기의 빈 리스트 생성 
+- 알고싶은 p1,p2입력
+- 관계 수 m 입력
+- m번 동안
+    - r1,r2 관계 입력
+    - rels에서 r1 index에 r2가 없다면 
+        - rels[r1].append(r2)
+    - rels에서 r2 index에 r1이 없다면
+        - rels[r2].append(r1)
 
-- print(bfs())
+- bfs()
+    - queue에 (rels[p1], count)을 입력
+    - while queue
+        - rel, temp_count = queue.popleft()
+        - 만약 rel에 p2가 있다면
+            - temp_count += 1
+            - return temp_count
+        - 없다면
+            - visited에 없다면
+            - visited.append(해당 인덱스)
+            - rel의 길이에 따라
+                - temp_count += 1
+                - queue.append(rels[index], temp_count)
+    
+    마지막 까지 없다면 return -1
 
 """
-
 from collections import deque
 
 def bfs():
+    count = 0
+    queue.append((rels[p1], count))
+    visited.append(p1)
     while queue:
-        rel_list,cnt = queue.popleft()
-        # breakpoint()
-        for i in rel_list:
-            if i in visited:
-                continue
-            elif p2 == i:
-                return cnt
-            else:
-                temp_count = cnt + 1
-                visited.append(i)
-                queue.append((rel[i],temp_count))
+        rel, count = queue.popleft()
+        if p2 in rel:
+            count += 1
+            return count
+        
+        else:
+            for i in rel:
+                if i in visited:
+                    continue
+                else:
+                    temp_count = count + 1
+                    queue.append((rels[i],temp_count))
+                    visited.append(i)
     return -1
 
-N = int(input())
+queue = deque()
 visited = []
-rel = [[] for _ in range(N+1)]
-# breakpoint()
-p1,p2 = map(int, input().split())
+n = int(input())
+rels = [[] for _ in range(n+1)]
+p1, p2 = map(int, input().split())
 m = int(input())
 for _ in range(m):
     r1,r2 = map(int, input().split())
-    if r2 not in rel[r1]:
-        rel[r1].append(r2) 
-    if r1 not in rel[r2]:
-        rel[r2].append(r1)
-
-queue = deque()
-count = 1
-queue.append((rel[p1],count))
-visited.append(p1)
+    if r2 not in rels[r1]:
+        rels[r1].append(r2)
+    if r1 not in rels[r2]:
+        rels[r2].append(r1)
 
 print(bfs())
 
