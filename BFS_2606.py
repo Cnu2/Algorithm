@@ -1,8 +1,8 @@
 """
-2/3
+[문제 풀이]
 1. 23/05/12
 2. 23/05/19
-3.
+3. 23/06/20
 """
 
 """
@@ -20,45 +20,55 @@
 
 """
 [sudo code]
-n 컴퓨터의 수 
-edge 연결 선 수
-관계를 입력할 array 선언
-visited = set() 
-
-연결된 관계 입력
-
-queue 에 1번 컴퓨터 저장
-
-1번 리스트를 돌면서 안에 있는 숫자 queue에 append
-visit한 적이 없으면 append
+n = int(input()) # 컴퓨터 대수 입력
+edge = int(input()) # 연결선 입력
+visited = []
+count = 1
+_map = [] * n+1
+for i in range(n):
+    관계 입력
+queue.append(_map[1])
+visited.append(1)
+def bfs():
+    while queue:
+        comp_list = queue.popleft()
+        for comp in comp_list:
+            comp 가 visited에 없으면:
+                visited.append(comp)
+                queue.append(_map[comp])
+        count += 1
 
 
 """
 from collections import deque
-n = int(input())
-edge = int(input())
-array = [[] for i in range(n+1)]
-visited = set()
 
-for _ in range(edge):
-    p1, p2 = map(int, input().split())
-    if p2 not in array[p1]:
-        array[p1].append(p2)
-    if p1 not in array[p2]:
-        array[p2].append(p1)
+def bfs():
+    count = 0
+    while queue:
+        comp_list = queue.popleft()
+        for comp in comp_list:
+            if comp not in visited:
+                visited.append(comp)
+                queue.append(_map[comp])
+                count += 1    
+
+    return count   
 
 queue = deque()
-queue.append(array[1])
-visited.add(1)
+n = int(input())
+edge = int(input())
+visited = []
+_map = [[] for _ in range(n+1)]
+for i in range(edge):
+    c1,c2 = map(int, input().split())
+    if c2 not in _map[c1]:
+        _map[c1].append(c2)
+    if c1 not in _map[c2]:
+        _map[c2].append(c1)
 
-while queue:
-    index_list = queue.popleft()
-    for i in index_list:
-        if i not in visited:
-            visited.add(i)
-            queue.append(array[i])
-
-print(len(visited)-1)
+queue.append(_map[1])
+visited.append(1)
 
 
 
+print(bfs())
