@@ -1,9 +1,9 @@
 """
 https://www.acmicpc.net/problem/1475
-2/3
+3/3
 1. 23/05/11
 2. 23/05/18
-3. 
+3. 23/06/20
 """
 
 """
@@ -30,19 +30,15 @@ https://www.acmicpc.net/problem/1475
 - num_arr중에 max를 출력한다.
 
 """
-num = int(input())
-num_list = str(num)
-# breakpoint()
+num_list = list(map(int, input()))
 num_arr = [0] * 10
-
 for i in num_list:
-    if int(i) == 6 or int(i) == 9:
+    if i == 6 or i == 9:
         if num_arr[6] >= num_arr[9]:
             num_arr[9] += 1
         else:
             num_arr[6] += 1
-    
     else:
-        num_arr[int(i)] += 1
-# breakpoint()
+        num_arr[i] += 1
+
 print(max(num_arr))
